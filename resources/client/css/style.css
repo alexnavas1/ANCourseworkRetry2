@@ -1,0 +1,21 @@
+body{
+    font-family: retrofont, sans-serif;
+    background-color: black;
+    color: white;
+    font-size:3vw;
+}
+
+.buttons{
+    font-family: retrofont, sans-serif;
+    font-size: 3vw;
+    color: black;
+    background-color: white;
+}
+
+.minortext{
+    font-size: 2vw;
+}
+
+.textinput{
+    font-size: 3vw;
+}

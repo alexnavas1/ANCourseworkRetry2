@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Creation</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="/client/js/newuser.js"></script>
+</head>
+<body>
+    <h1>New Account</h1>
+    <form id="createform">
+        <input class="buttons" type="text" id="Username" name="Username" placeholder="Username">
+        <input class="buttons" type="password" id="Password" name="Password" placeholder="Password">
+        <input class="buttons" type="password" id="Password2" name="Password2" placeholder="Re-enter Password">
+        <br>
+        <input class="buttons" type="text" id="FirstName" name="FirstName" placeholder="FirstName">
+        <input class="buttons" type="text" id="LastName" name="LastName" placeholder="LastName">
+        <br>
+        <input class="buttons" type="text" id="AdminKey" name="AdminKey" placeholder="Admin Key">
+
+    </form>
+
+    <p class="minortext">Note: Passwords must be a minimum of 8 characters</p>
+    <input class="buttons" type="submit" id="createaccountbutton" name="createaccountbutton" onclick='UsersCreate();'>
+
+</body>
+</html>
