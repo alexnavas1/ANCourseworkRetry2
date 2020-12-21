@@ -27,6 +27,8 @@ function getProgress(){
 
                 //statsHTML+=`</table>`;
                 //console.log(statsHTML);
+
+                // takes the image name from the JSON string and adds it to the URL of the <body></body> tag
                 document.getElementById('body').style.backgroundImage = 'url(img/'+response.ImageName+')';
             }
         });
