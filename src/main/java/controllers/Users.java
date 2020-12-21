@@ -123,6 +123,21 @@ public class Users{
                 response.put("Health", results.getInt(1));
                 response.put("Stamina", results.getInt(2));
                 response.put("Score", results.getInt(3));
+                PreparedStatement ps2 = Main.db.prepareStatement("SELECT BackgroundID FROM Stage WHERE ProgressID = ?");
+                ps2.setInt(1,results.getInt(4));
+                ResultSet rs2 = ps2.executeQuery();
+                if(rs2.next()){
+                    PreparedStatement ps3 = Main.db.prepareStatement("SELECT BackgroundImage FROM Backgrounds WHERE BackgroundID = ?");
+                    ps3.setInt(1,rs2.getInt(1));
+                    ResultSet rs3 = ps3.executeQuery();
+                    if(rs3.next()){
+                        response.put("ImageName",rs3.getString(1));
+                    }else{
+                        return "{\"Error\": \"Unable to find an image matching the background ID.\"}";
+                    }
+                }else{
+                    return "{\"Error\": \"Unable to find a matching progress ID.\"}";
+                }
                 response.put("ProgressID", results.getInt(4));
             }
             return response.toString();
