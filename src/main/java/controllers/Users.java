@@ -115,14 +115,32 @@ public class Users{
     public String getProgress(@CookieParam("Token") String Token) {
         System.out.println("Invoked Users.getProgress() with Token " + Token);
         try {
+            // finds the user record based on the Token passed after logging in
             PreparedStatement ps = Main.db.prepareStatement("SELECT Health, Stamina, Score, ProgressID FROM Users WHERE Token = ?");
             ps.setString(1, Token);
             ResultSet results = ps.executeQuery();
             JSONObject response = new JSONObject();
-            if (results.next()) {
+            if (results.next()) { // if the user exists with the same token
                 response.put("Health", results.getInt(1));
                 response.put("Stamina", results.getInt(2));
                 response.put("Score", results.getInt(3));
+
+                // gets the background ID based on the ProgressID in the Stage table
+                PreparedStatement ps2 = Main.db.prepareStatement("SELECT BackgroundID FROM Stage WHERE ProgressID = ?");
+                ps2.setInt(1,results.getInt(4));
+                ResultSet rs2 = ps2.executeQuery();
+                if(rs2.next()){ // if the backgroundID exists
+                    PreparedStatement ps3 = Main.db.prepareStatement("SELECT BackgroundImage FROM Backgrounds WHERE BackgroundID = ?");
+                    ps3.setInt(1,rs2.getInt(1));
+                    ResultSet rs3 = ps3.executeQuery();
+                    if(rs3.next()){
+                        response.put("ImageName",rs3.getString(1)); // add the name of the image to the JSON string
+                    }else{
+                        return "{\"Error\": \"Unable to find an image matching the background ID.\"}";
+                    }
+                }else{
+                    return "{\"Error\": \"Unable to find a matching progress ID.\"}";
+                }
                 response.put("ProgressID", results.getInt(4));
             }
             return response.toString();

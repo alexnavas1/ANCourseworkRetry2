@@ -13,18 +13,23 @@ function getProgress(){
                 alert(JSON.stringify(response));            // if it does, convert JSON object to string and alert
             } else {
                 //document.getElementById("DisplayOneUser").innerHTML = response.UserID + " " + response.UserName;  //output data
-                statsHTML = `<table>`;
-                statsHTML += `<tr>`+
-                        `<td>${response.Health}</td>`+
-                        `<td>${response.Stamina}</td>`+
-                        `<td>${response.Score}</td>`+
-                        `<td>${response.ProgressID}</td>`+
-                        `</tr>`;
 
+                // this builds the HTML to be displayed on the page in the <div></div>
+                // block with an ID 'stats'
+                //statsHTML = `<table>`;
+                //statsHTML += `<tr><th>Health</th><th>Stamina</th><th>Score</th><th>Image</th>`
+                //statsHTML += `<tr>`+
+                //        `<td>${response.Health}</td>`+
+                //        `<td>${response.Stamina}</td>`+
+                //        `<td>${response.Score}</td>`+
+                //        `<td>${response.ImageName}</td>`+
+                //        `</tr>`;
 
-                statsHTML+=`</table>`;
-                console.log(statsHTML);
-                document.getElementById('stats').innerHTML = statsHTML;
+                //statsHTML+=`</table>`;
+                //console.log(statsHTML);
+
+                // takes the image name from the JSON string and adds it to the URL of the <body></body> tag
+                document.getElementById('body').style.backgroundImage = 'url(img/'+response.ImageName+')';
             }
         });
 }
