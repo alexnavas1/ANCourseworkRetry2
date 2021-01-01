@@ -21,6 +21,7 @@ function getProgress(){
                         `<td>${response.ProgressID}</td>`+
                         `</tr>`;
 
+
                 statsHTML+=`</table>`;
                 console.log(statsHTML);
                 document.getElementById('stats').innerHTML = statsHTML;
