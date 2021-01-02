@@ -22,14 +22,14 @@ function getProgress(){
                 //        `<td>${response.Health}</td>`+
                 //        `<td>${response.Stamina}</td>`+
                 //        `<td>${response.Score}</td>`+
-                //        `<td>${response.ImageName}</td>`+
+                //        `<td>${response.BackgroundImage}</td>`+
                 //        `</tr>`;
 
                 //statsHTML+=`</table>`;
                 //console.log(statsHTML);
 
                 // takes the image name from the JSON string and adds it to the URL of the <body></body> tag
-                document.getElementById('body').style.backgroundImage = 'url(img/'+response.ImageName+')';
+                document.getElementById('body').style.backgroundImage = 'url(img/'+response.BackgroundImage+')';
             }
         });
 }

@@ -134,7 +134,7 @@ public class Users{
                     ps3.setInt(1,rs2.getInt(1));
                     ResultSet rs3 = ps3.executeQuery();
                     if(rs3.next()){
-                        response.put("ImageName",rs3.getString(1)); // add the name of the image to the JSON string
+                        response.put("BackgroundImage",rs3.getString(1)); // add the name of the image to the JSON string
                     }else{
                         return "{\"Error\": \"Unable to find an image matching the background ID.\"}";
                     }
