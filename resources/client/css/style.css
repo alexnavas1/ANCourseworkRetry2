@@ -19,3 +19,8 @@ body{
 .textinput{
     font-size: 3vw;
 }
+
+#textoutput{
+    width: 50vw;
+    height: 20vw;
+}
