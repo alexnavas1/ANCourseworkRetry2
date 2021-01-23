@@ -32,7 +32,9 @@ function getProgress(){
                 document.getElementById('body').style.backgroundImage = 'url(img/'+response.BackgroundImage+')';
             }
         });
+}
 
+function rungame(){
     let locations = [
         {
             name: "Entrance hall",
@@ -321,7 +323,6 @@ function getProgress(){
 
         }
 }
-
 
 
 
