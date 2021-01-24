@@ -1,4 +1,5 @@
 function getProgress(){
+
         console.log("Invoked getProgress()");     //console.log your BFF for debugging client side
         //const UserID = document.getElementById("UserID").value;  //get the UserId from the HTML element with id=UserID
     //let UserID = 1; 			  //You could hard code it if you have problems
@@ -34,9 +35,14 @@ function getProgress(){
         });
 }
 
-function rungame(){
+function changetext(){
+    console.log("changetext() invoked");
+    document.getElementById("textoutput").innerHTML=("changetext() has worked");
+}
+
+function runGame(){
     let locations = [
-        {
+        {  //the locations array contains a record for every location in the game. within these records are the name, dialogue, and possible options to make from said location
             name: "Entrance hall",
             description: "You are standing in the main entrance hall of the museum. There is\n" +
                 "a huge skeleton of a whale hanging from the ceiling. A grand set of\n" +
@@ -49,7 +55,7 @@ function rungame(){
                 {
                     label: "Left corridor",
                     destination: "Dinosaurs room",
-                    requirement: null
+                    requirement: null  //some destinations require certain items to access, such as a key
                 },
                 {
                     label: "Right corridor",
@@ -68,7 +74,7 @@ function rungame(){
                 },
             ],
             items: [
-                {
+                {  //locations also have items that can be collected from the room, to be used later in the game, the "collected" variable defines whether it is considered to be in the inventory of the player yet or not
                     name: "Guidebook",
                     announcement: "You pick up a guidebook, the map inside could be helpful.",
                     collected: false
@@ -199,7 +205,7 @@ function rungame(){
             directions: [
             ],
             items: [
-            ]
+            ]  //as a location such as the Wheely bins is at one the game's endings, there are no possible directions or items to take, which signals to the program that this is an ending
         },
 
 
@@ -207,15 +213,17 @@ function rungame(){
     ];
 
     let currentLocation = "Entrance hall";
-
+    //this sets the beginning location and inventory contents, hopefully I will be able to make location and maybe inventory (if i keep the inventory feature) be set after a fetch from the database to let the player retrieve previous progress
     let inventory = [];
+
 
     main:
         while (true) {
-
+            changetext();
+            document.getElementById("textoutput").innerHTML=("Current location: " + currentLocation);
             console.log("Current location: " + currentLocation);
-
-            if (inventory.length > 0) {
+            //in this version of the game, outputs are given via the console log. This must be changed as it doesn't appear on the main webpage
+            if (inventory.length > 0) { //this if statement and for loop is made to read out any current items in the user's inventory
                 console.log("Inventory:");
                 for (let i = 0; i < inventory.length; i++) {
                     console.log(" - " + inventory[i]);
@@ -223,8 +231,8 @@ function rungame(){
             }
 
             console.log("---------------------------------------------");
-
-            for (let i = 0; i < locations.length; i++) {
+            //spaces out outputs to make game easier to read for user
+            for (let i = 0; i < locations.length; i++) { //this loop and if statement are made to identify the current location of the user
                 if (locations[i].name.toLowerCase() == currentLocation.toLowerCase()) {
 
                     console.log(locations[i].description);
@@ -233,16 +241,16 @@ function rungame(){
                     let option = 0;
 
 
-                    if (locations[i].directions.length > 0) {
+                    if (locations[i].directions.length > 0) { //this if statement is used to output the different choices of directions for the user
                         console.log("Directions:")
                         for (let j = 0; j < locations[i].directions.length; j++) {
-                            option++;
+                            option++; //this tally starts at 0 and increases with every possible option for the player
                             console.log(option + ") " + locations[i].directions[j].label);
                         }
                         console.log();
                     }
 
-                    if (locations[i].items.length > 0) {
+                    if (locations[i].items.length > 0) { //displays the different items at the location, and also checks if they are already owned
                         console.log("Items:")
                         for (let j = 0; j < locations[i].items.length; j++) {
                             option++;
@@ -255,30 +263,30 @@ function rungame(){
                         console.log();
                     }
 
-                    if (option == 0) {
+                    if (option == 0) { //if no options have been given to the player, and therefore is it a dead end, the game ends.
                         console.log("You have no options - Game over!");
                         break main;
                     }
 
-                    let choice = Number(prompt("Please pick an option: "));
+                    let choice = Number(prompt("Please pick an option: ")); //prompt is a popup similar to alert("message") but contains an input box for the user to return a response, this method of input does work, but I'd rather change this to something more elegant in the future
 
-                    if (isNaN(choice)) {
+                    if (isNaN(choice)) {//if the input was not a number, the program rejects the input
 
                         console.log("Please enter a valid number!");
 
-                    } else if (choice <= 0 || choice > option) {
+                    } else if (choice <= 0 || choice > option) { //rejects invalid inputs for the range of options provided to the user
 
                         console.log("Please enter a number between 1 and " + option);
 
-                    } else if (choice > 0 && choice <= locations[i].directions.length) {
+                    } else if (choice > 0 && choice <= locations[i].directions.length) { //checks if the input was for a direction
 
-                        let requirement = locations[i].directions[choice - 1].requirement;
+                        let requirement = locations[i].directions[choice - 1].requirement; //defines the requirement for the chosen direction
 
                         if (requirement != null) {
 
                             let requirementMet = false;
 
-                            for (j = 0; j < inventory.length; j++) {
+                            for (j = 0; j < inventory.length; j++) { //loops through the user's inventory to find the necessary item
                                 if (inventory[j].toLowerCase() == requirement.toLowerCase()) {
                                     requirementMet = true;
                                 }
@@ -293,11 +301,12 @@ function rungame(){
                         }
 
                         currentLocation = locations[i].directions[choice - 1].destination;
+                        //if there is no requirement or if the requirement is met, the user's location is moved to the location of their choice
 
-                    } else {
+                    } else { //by process of elimination, the user's input must have been for an item
 
                         let item = choice - locations[i].directions.length - 1;
-                        if (!locations[i].items[item].collected) {
+                        if (!locations[i].items[item].collected) {//if the user doesn't already have the item, then it will be collected
 
                             console.log(locations[i].items[item].announcement);
                             inventory.push(locations[i].items[item].name);
@@ -305,7 +314,7 @@ function rungame(){
 
                         } else {
 
-                            console.log("You've already collected that item!");
+                            console.log("You've already collected that item!"); // if already collected, a message is given
 
                         }
 
@@ -313,16 +322,17 @@ function rungame(){
 
                     console.log();
 
-                    continue main;
+                    continue main; //loops back to the start of "main", one loop of "main" can be considered as one turn in the game. the new loop will be carried out with the new location or item
 
                 }
             }
 
-            console.log("Location details not found - Game over!");
+            console.log("Location details not found - Game over!"); //if the loop at the start of "main" can't identify the current location of the user, an error message is given
             break main;
 
         }
 }
+
 
 
 
