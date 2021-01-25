@@ -37,7 +37,7 @@ function getProgress(){
 
 function changetext(){
     console.log("changetext() invoked");
-    document.getElementById("textoutput").innerHTML=("changetext() has worked");
+    document.getElementById("textoutput").innerText=("changetext() has worked");
 }
 
 function runGame(){
@@ -220,7 +220,7 @@ function runGame(){
     main:
         while (true) {
             changetext();
-            document.getElementById("textoutput").innerHTML=("Current location: " + currentLocation);
+            document.getElementById("textoutput").innerText=("Current location: " + currentLocation);
             console.log("Current location: " + currentLocation);
             //in this version of the game, outputs are given via the console log. This must be changed as it doesn't appear on the main webpage
             if (inventory.length > 0) { //this if statement and for loop is made to read out any current items in the user's inventory
