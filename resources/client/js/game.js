@@ -216,21 +216,23 @@ function runGame(){
     //this sets the beginning location and inventory contents, hopefully I will be able to make location and maybe inventory (if i keep the inventory feature) be set after a fetch from the database to let the player retrieve previous progress
     let inventory = [];
 
+    function userInput(){
+        return document.getElementById("textinput");
+    }
+
 
     main:
         while (true) {
-            changetext();
             document.getElementById("textoutput").innerText=("Current location: " + currentLocation);
-            console.log("Current location: " + currentLocation);
             //in this version of the game, outputs are given via the console log. This must be changed as it doesn't appear on the main webpage
             if (inventory.length > 0) { //this if statement and for loop is made to read out any current items in the user's inventory
-                console.log("Inventory:");
+                document.getElementById("textoutput").innerText=("Inventory:");
                 for (let i = 0; i < inventory.length; i++) {
-                    console.log(" - " + inventory[i]);
+                    document.getElementById("textoutput").innerText=(" - " + inventory[i]);
                 }
             }
 
-            console.log("---------------------------------------------");
+            document.getElementById("textoutput").innerText=("---------------------------------------------");
             //spaces out outputs to make game easier to read for user
             for (let i = 0; i < locations.length; i++) { //this loop and if statement are made to identify the current location of the user
                 if (locations[i].name.toLowerCase() == currentLocation.toLowerCase()) {
@@ -268,7 +270,8 @@ function runGame(){
                         break main;
                     }
 
-                    let choice = Number(prompt("Please pick an option: ")); //prompt is a popup similar to alert("message") but contains an input box for the user to return a response, this method of input does work, but I'd rather change this to something more elegant in the future
+                    //alert("Please enter your choice");//
+                    let choice = Number(userInput());// //prompt is a popup similar to alert("message") but contains an input box for the user to return a response, this method of input does work, but I'd rather change this to something more elegant in the future
 
                     if (isNaN(choice)) {//if the input was not a number, the program rejects the input
 
