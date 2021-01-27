@@ -216,9 +216,9 @@ function runGame(){
     //this sets the beginning location and inventory contents, hopefully I will be able to make location and maybe inventory (if i keep the inventory feature) be set after a fetch from the database to let the player retrieve previous progress
     let inventory = [];
 
-    function userInput(){
-        return document.getElementById("textinput");
-    }
+    //function userInput(){
+        //return document.getElementById("textinput");
+    //}
 
 
     main:
@@ -226,19 +226,24 @@ function runGame(){
             document.getElementById("textoutput").innerText=("Current location: " + currentLocation);
             //in this version of the game, outputs are given via the console log. This must be changed as it doesn't appear on the main webpage
             if (inventory.length > 0) { //this if statement and for loop is made to read out any current items in the user's inventory
-                document.getElementById("textoutput").innerText=("Inventory:");
+                let inventoryTitleOutput = document.createTextNode("Inventory:");
+                document.getElementById("textoutput").appendChild(inventoryTitleOutput);
                 for (let i = 0; i < inventory.length; i++) {
-                    document.getElementById("textoutput").innerText=(" - " + inventory[i]);
+                    let inventoryContentsOutput = document.createTextNode(" - " + inventory[i]);
+                    document.getElementById("textoutput").appendChild(inventoryContentsOutput);
                 }
             }
 
-            document.getElementById("textoutput").innerText=("---------------------------------------------");
+            let dashedLine = document.createTextNode("---------------------------------------------");
+            document.getElementById("textoutput").appendChild(dashedLine);
             //spaces out outputs to make game easier to read for user
             for (let i = 0; i < locations.length; i++) { //this loop and if statement are made to identify the current location of the user
                 if (locations[i].name.toLowerCase() == currentLocation.toLowerCase()) {
 
+                    let locationDescription = document.createTextNode(locations[i].description);
+                    document.getElementById("textoutput").appendChild(locationDescription);
                     console.log(locations[i].description);
-                    console.log();
+                    console.log("");
 
                     let option = 0;
 
@@ -271,7 +276,8 @@ function runGame(){
                     }
 
                     //alert("Please enter your choice");//
-                    let choice = Number(userInput());// //prompt is a popup similar to alert("message") but contains an input box for the user to return a response, this method of input does work, but I'd rather change this to something more elegant in the future
+                    //let choice = Number(document.getElementById("textinput").value);// //prompt is a popup similar to alert("message") but contains an input box for the user to return a response, this method of input does work, but I'd rather change this to something more elegant in the future
+
 
                     if (isNaN(choice)) {//if the input was not a number, the program rejects the input
 

@@ -8,6 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.js"></script>
 
     <style>
+        html{
+            background: no-repeat center fixed;
+            background-size: cover;
+        }
         body{
             background-image: url("https://i.ytimg.com/vi/Ic3ZdD5ko7k/maxresdefault.jpg");
             background-color: #000000;
@@ -17,9 +21,9 @@
     </style>
 </head>
 <body onload="getProgress()" id="body">
-<h1>Logo</h1>
+<h1 id="Logo">Logo</h1>
 <div style="margin-left:5vw;float:left">
-    <img src=img/slimemonster.jpg alt="enemy" width="20%" height="auto" </img> <img src="img/batman.png" alt="you" width="15%" height="auto"</img>
+    <img src=img/slimemonster.jpg alt="enemy" height="auto" width="13%"</img> <img src="img/batman.png" alt="you" width="10%" height="auto"</img>
     <br>
     <input type="text" id="textinput"> <button onclick="userInput()">Enter</button>
     <br>

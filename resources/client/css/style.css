@@ -1,3 +1,8 @@
+html{
+    background: no-repeat center fixed;
+    background-size: cover;
+}
+
 body{
     font-family: retrofont, sans-serif;
     background-color: black;
@@ -16,11 +21,16 @@ body{
     font-size: 2vw;
 }
 
-.textinput{
-    font-size: 3vw;
+#textinput{
+    font-size: 2vw;
 }
 
 #textoutput{
-    width: 50vw;
-    height: 20vw;
+    font-size: 1vw;
+    width: 90%;
+    height:auto;
+}
+
+#Logo{
+    font-size: 4vw;
 }
