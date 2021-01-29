@@ -14,9 +14,12 @@ body{
     font-family: retrofont, sans-serif;
     font-size: 3vw;
     color: black;
-    background-color: white;
+    background-color: white''
 }
 
+.textinput{
+    font-size: 2vw;
+}
 .minortext{
     font-size: 2vw;
 }
@@ -26,6 +29,12 @@ body{
 }
 
 #textoutput{
+    font-size: 1vw;
+    width: 90%;
+    height:auto;
+}
+
+#textoutputpre{
     font-size: 1vw;
     width: 90%;
     height:auto;

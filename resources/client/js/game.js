@@ -44,13 +44,11 @@ function runGame(){
     let locations = [
         {  //the locations array contains a record for every location in the game. within these records are the name, dialogue, and possible options to make from said location
             name: "Entrance hall",
-            description: "You are standing in the main entrance hall of the museum. There is\n" +
-                "a huge skeleton of a whale hanging from the ceiling. A grand set of\n" +
-                "stairs extends up towards the spacious upper galleries. Corridors\n" +
-                "extend towards the left and right. On a wide visitor desk in front\n" +
-                "of you are some guidebooks. Towards the back of the hall is a large\n" +
-                "wooden door with a sign reading 'staff only'. On the floor near the\n" +
-                "door there is a brass coloured key.",
+            description: "You are standing in the main entrance hall of the museum. There is a huge skeleton of a whale \n" +
+                "hanging from the ceiling. A grand set of stairs extends up towards the spacious upper galleries. \n" +
+                "Corridors extend towards the left and right. On a wide visitor desk in front of you are some \n" +
+                "guidebooks. Towards the back of the hall is a large wooden door with a sign reading 'staff only'. \n" +
+                "On the floor near the door there is a brass coloured key.",
             directions: [
                 {
                     label: "Left corridor",
@@ -105,7 +103,7 @@ function runGame(){
 
         {
             name: "Insects room",
-            description: "Amidst all the preserved beatles and elegent butterfly specimins is\n" +
+            description: "Amidst all the preserved beatles and elegant butterfly specimens is\n" +
                 "a curious looking plastic box in the middle of the floor. It is laying on its\n" +
                 "side and the lid, if there ever was one, is nowhere to be seen.",
             directions: [
@@ -217,61 +215,73 @@ function runGame(){
     let inventory = [];
 
     //function userInput(){
-        //return document.getElementById("textinput");
+        //choice = document.getElementById("textinput");
+    //}
+
+    //function choice(){
+     //   return(Number(prompt("Enter your choice!")));
     //}
 
 
     main:
         while (true) {
-            document.getElementById("textoutput").innerText=("Current location: " + currentLocation);
+
+            document.getElementById("textoutputpre").innerText=("Current location: " + currentLocation + "\n");
             //in this version of the game, outputs are given via the console log. This must be changed as it doesn't appear on the main webpage
             if (inventory.length > 0) { //this if statement and for loop is made to read out any current items in the user's inventory
-                let inventoryTitleOutput = document.createTextNode("Inventory:");
-                document.getElementById("textoutput").appendChild(inventoryTitleOutput);
+                let inventoryTitleOutput = document.createTextNode("Inventory: \n");
+                document.getElementById("textoutputpre").appendChild(inventoryTitleOutput);
                 for (let i = 0; i < inventory.length; i++) {
-                    let inventoryContentsOutput = document.createTextNode(" - " + inventory[i]);
-                    document.getElementById("textoutput").appendChild(inventoryContentsOutput);
+                    let inventoryContentsOutput = document.createTextNode(" - " + inventory[i] + "\n");
+                    document.getElementById("textoutputpre").appendChild(inventoryContentsOutput);
                 }
             }
 
-            let dashedLine = document.createTextNode("---------------------------------------------");
-            document.getElementById("textoutput").appendChild(dashedLine);
             //spaces out outputs to make game easier to read for user
             for (let i = 0; i < locations.length; i++) { //this loop and if statement are made to identify the current location of the user
                 if (locations[i].name.toLowerCase() == currentLocation.toLowerCase()) {
 
-                    let locationDescription = document.createTextNode(locations[i].description);
-                    document.getElementById("textoutput").appendChild(locationDescription);
-                    console.log(locations[i].description);
-                    console.log("");
+                    let locationDescription = document.createTextNode(locations[i].description + "\n");
+                    document.getElementById("textoutputpre").appendChild(locationDescription);
 
                     let option = 0;
 
 
                     if (locations[i].directions.length > 0) { //this if statement is used to output the different choices of directions for the user
-                        console.log("Directions:")
+                        let directionsTitleOutput = document.createTextNode("Directions: \n");
+                        document.getElementById("textoutputpre").appendChild(directionsTitleOutput);
                         for (let j = 0; j < locations[i].directions.length; j++) {
                             option++; //this tally starts at 0 and increases with every possible option for the player
-                            console.log(option + ") " + locations[i].directions[j].label);
+
+                            let directionsOutput = document.createTextNode(option + ") " + locations[i].directions[j].label + "\n");
+                            document.getElementById("textoutputpre").appendChild(directionsOutput);
+
                         }
-                        console.log();
                     }
 
                     if (locations[i].items.length > 0) { //displays the different items at the location, and also checks if they are already owned
-                        console.log("Items:")
+
+                        let itemsTitleOutput = document.createTextNode("Items: \n");
+                        document.getElementById("textoutputpre").appendChild(itemsTitleOutput);
+
                         for (let j = 0; j < locations[i].items.length; j++) {
                             option++;
                             if (locations[i].items[j].collected) {
-                                console.log(option + ") " + locations[i].items[j].name + " [Already collected]");
+
+                                let itemsCollectedOutput = document.createTextNode(option + ") " + locations[i].items[j].name + " [Already collected] \n");
+                                document.getElementById("textoutputpre").appendChild(itemsCollectedOutput);
                             } else {
-                                console.log(option + ") " + locations[i].items[j].name);
+
+                                let itemsUncollectedOutput = document.createTextNode(option + ") " + locations[i].items[j].name + "\n");
+                                document.getElementById("textoutputpre").appendChild(itemsUncollectedOutput);
                             }
                         }
-                        console.log();
                     }
 
                     if (option == 0) { //if no options have been given to the player, and therefore is it a dead end, the game ends.
-                        console.log("You have no options - Game over!");
+
+                        let noOptionsOutput = document.createTextNode("You have no options - Game over! \n");
+                        document.getElementById("textoutputpre").appendChild(noOptionsOutput);
                         break main;
                     }
 
@@ -281,11 +291,14 @@ function runGame(){
 
                     if (isNaN(choice)) {//if the input was not a number, the program rejects the input
 
-                        console.log("Please enter a valid number!");
+                        let pleaseEnterValid = document.createTextNode("Please enter a valid number! \n");
+                        document.getElementById("textoutputpre").appendChild(pleaseEnterValid);
+
 
                     } else if (choice <= 0 || choice > option) { //rejects invalid inputs for the range of options provided to the user
 
-                        console.log("Please enter a number between 1 and " + option);
+                        let pleaseEnterInRange = document.createTextNode("Please enter a number between 1 and " + option + "\n");
+                        document.getElementById("textoutputpre").appendChild(noOptionsOutput);
 
                     } else if (choice > 0 && choice <= locations[i].directions.length) { //checks if the input was for a direction
 
@@ -302,8 +315,10 @@ function runGame(){
                             }
 
                             if (!requirementMet) {
-                                console.log("You require " + requirement + " for that.");
-                                console.log();
+
+                                let requirementUnmet = document.createTextNode("You require " + requirement + "for that. \n");
+                                document.getElementById("textoutputpre").appendChild(requirementUnmet);
+
                                 continue main;
                             }
 
@@ -317,26 +332,28 @@ function runGame(){
                         let item = choice - locations[i].directions.length - 1;
                         if (!locations[i].items[item].collected) {//if the user doesn't already have the item, then it will be collected
 
-                            console.log(locations[i].items[item].announcement);
+                            let itemGained = document.createTextNode(locations[i].items[item].announcement + "\n");
+                            document.getElementById("textoutputpre").appendChild(itemGained);
                             inventory.push(locations[i].items[item].name);
                             locations[i].items[item].collected = true;
 
                         } else {
 
-                            console.log("You've already collected that item!"); // if already collected, a message is given
+                            let itemAlreadyGained = document.createTextNode("You've already collected that item! \n");
+                            document.getElementById("textoutputpre").appendChild(itemAlreadyGained); // if already collected, a message is given
 
                         }
 
                     }
-
-                    console.log();
 
                     continue main; //loops back to the start of "main", one loop of "main" can be considered as one turn in the game. the new loop will be carried out with the new location or item
 
                 }
             }
 
-            console.log("Location details not found - Game over!"); //if the loop at the start of "main" can't identify the current location of the user, an error message is given
+            let locationNotFound = document.createTextNode("Location details not found - Game over! \n");
+            document.getElementById("textoutputpre").appendChild(locationNotFound); //if the loop at the start of "main" can't identify the current location of the user, an error message is given
+
             break main;
 
         }
